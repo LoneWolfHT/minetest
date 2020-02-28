@@ -82,6 +82,7 @@ ItemDefinition& ItemDefinition::operator=(const ItemDefinition &def)
 	range = def.range;
 	palette_image = def.palette_image;
 	color = def.color;
+	light_source = def.light_source;
 	return *this;
 }
 
@@ -108,6 +109,7 @@ void ItemDefinition::reset()
 	wield_overlay = "";
 	palette_image = "";
 	color = video::SColor(0xFFFFFFFF);
+	light_source = 0;
 	wield_scale = v3f(1.0, 1.0, 1.0);
 	stack_max = 99;
 	usable = false;
@@ -162,6 +164,8 @@ void ItemDefinition::serialize(std::ostream &os, u16 protocol_version) const
 	writeARGB8(os, color);
 	os << serializeString(inventory_overlay);
 	os << serializeString(wield_overlay);
+
+	writeU8(os, light_source);
 }
 
 void ItemDefinition::deSerialize(std::istream &is)
@@ -210,6 +214,10 @@ void ItemDefinition::deSerialize(std::istream &is)
 	color = readARGB8(is);
 	inventory_overlay = deSerializeString(is);
 	wield_overlay = deSerializeString(is);
+
+	try {
+		light_source = readU8(is);
+	} catch(SerializationError &e) {};
 
 	// If you add anything here, insert it primarily inside the try-catch
 	// block to not need to increase the version.
