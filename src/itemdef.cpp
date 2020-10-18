@@ -168,9 +168,9 @@ void ItemDefinition::serialize(std::ostream &os, u16 protocol_version) const
 	os << serializeString16(inventory_overlay);
 	os << serializeString16(wield_overlay);
 
+	writeU8(os, light_source);
+
 	os << serializeString16(short_description);
-  
-  writeU8(os, light_source);
 }
 
 void ItemDefinition::deSerialize(std::istream &is)
