@@ -62,6 +62,7 @@ ItemDefinition& ItemDefinition::operator=(const ItemDefinition &def)
 	type = def.type;
 	name = def.name;
 	description = def.description;
+	short_description = def.short_description;
 	inventory_image = def.inventory_image;
 	inventory_overlay = def.inventory_overlay;
 	wield_image = def.wield_image;
@@ -103,6 +104,7 @@ void ItemDefinition::reset()
 	type = ITEM_NONE;
 	name = "";
 	description = "";
+	short_description = "";
 	inventory_image = "";
 	inventory_overlay = "";
 	wield_image = "";
@@ -165,6 +167,8 @@ void ItemDefinition::serialize(std::ostream &os, u16 protocol_version) const
 
 	os << serializeString16(inventory_overlay);
 	os << serializeString16(wield_overlay);
+
+	os << serializeString16(short_description);
   
   writeU8(os, light_source);
 }
@@ -222,8 +226,9 @@ void ItemDefinition::deSerialize(std::istream &is)
 
 	// If you add anything here, insert it primarily inside the try-catch
 	// block to not need to increase the version.
-	//try {
-	//} catch(SerializationError &e) {};
+	try {
+		short_description = deSerializeString16(is);
+	} catch(SerializationError &e) {};
 }
 
 
