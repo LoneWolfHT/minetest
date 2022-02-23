@@ -2,14 +2,14 @@
 	"name": "minetest",
 	"version-string": "5.5.0",
 	"dependencies": [
-		"zlib",
-		"zstd",
 		{
 			"name": "curl",
 			"features": [
 				"winssl"
 			]
 		},
+		"zlib",
+		"zstd",
 		"openal-soft",
 		"libvorbis",
 		"libogg",
