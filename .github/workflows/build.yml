@@ -241,7 +241,7 @@ jobs:
           vcpkgGitCommitId: ${{ env.VCPKG_VERSION }}
           vcpkgJsonGlob: '**/util/ci/vcpkg.json'
           runVcpkgInstall: true
-          runVcpkgFormatString: "[`integrate`, `install`, `--recurse`, `--clean-after-build`, `--x-install-root`, `$[env.VCPKG_INSTALLED_DIR]`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`]""
+          runVcpkgFormatString: "[`integrate`, `install`, `--recurse`, `--clean-after-build`, `--x-install-root`, `$[env.VCPKG_INSTALLED_DIR]`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`]"
 
       - name: Minetest CMake
         run: |
