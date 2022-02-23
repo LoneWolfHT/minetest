@@ -203,7 +203,6 @@ jobs:
       VCPKG_VERSION: 5cf60186a241e84e8232641ee973395d4fde90e1
       # 2022.02
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.vcpkg_triplet }}
-      VCPKG_INSTALLED_DIR: ${{ github.workspace }}/vcpkg_installed/
     strategy:
       fail-fast: false
       matrix:
@@ -241,7 +240,7 @@ jobs:
           vcpkgGitCommitId: ${{ env.VCPKG_VERSION }}
           vcpkgJsonGlob: '**/util/ci/vcpkg.json'
           runVcpkgInstall: true
-          runVcpkgFormatString: "[`integrate`, `install`, `--recurse`, `--clean-after-build`, `--x-install-root`, `$[env.VCPKG_INSTALLED_DIR]`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`]"
+          runVcpkgFormatString: "[`integrate`, `install`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`]"
 
       - name: Minetest CMake
         run: |
