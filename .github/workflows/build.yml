@@ -204,7 +204,7 @@ jobs:
       # 2022.02
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.vcpkg_triplet }}
       
-      VCPKG_INSTALLED_DIR: ${{ github.worspace }}\vcpkg\installed\
+      VCPKG_INSTALLED_DIR: ${{ github.worspace }}/vcpkg/installed/
     strategy:
       fail-fast: false
       matrix:
