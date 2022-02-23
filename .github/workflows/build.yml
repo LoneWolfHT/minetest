@@ -240,7 +240,6 @@ jobs:
           appendedCacheKey: ${{ matrix.config.vcpkg_triplet }}
           vcpkgGitCommitId: ${{ env.VCPKG_VERSION }}
           vcpkgJsonGlob: '**/util/ci/vcpkg.json'
-          runVcpkgInstall: true
 
       - name: Minetest CMake
         run: |
