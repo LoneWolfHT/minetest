@@ -224,6 +224,8 @@ jobs:
 # Enable it, when working on the installer.
 
     steps:
+      - uses: lukka/get-cmake@latest
+
       - name: Checkout
         uses: actions/checkout@v2.4.0
 
@@ -235,19 +237,25 @@ jobs:
           ref: "1.9.0mt4"
 
       - name: Restore from cache and run vcpkg
-        uses: lukka/run-vcpkg@v10.1
+        uses: lukka/run-vcpkg@v10
         with:
           appendedCacheKey: ${{ matrix.config.vcpkg_triplet }}
           vcpkgGitCommitId: ${{ env.VCPKG_VERSION }}
           vcpkgJsonGlob: '**/util/ci/vcpkg.json'
 
-      - name: Minetest CMake
-        run: |
-          cmake ${{matrix.config.generator}}  `
-          -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake"  `
-          -DCMAKE_BUILD_TYPE=Release  `
-          -DENABLE_POSTGRESQL=OFF  `
-          -DRUN_IN_PLACE=${{ contains(matrix.type, 'portable') }} .
+      - name: Run CMake consuming CMakePresets.json and vcpkg.json by mean of vcpkg.
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'ninja-multi-vcpkg'
+          buildPreset: 'ninja-multi-vcpkg'
+
+      # - name: Minetest CMake
+      #   run: |
+      #     cmake ${{matrix.config.generator}}  `
+      #     -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake"  `
+      #     -DCMAKE_BUILD_TYPE=Release  `
+      #     -DENABLE_POSTGRESQL=OFF  `
+      #     -DRUN_IN_PLACE=${{ contains(matrix.type, 'portable') }} .
 
       - name: Build Minetest
         run: cmake --build . --config Release
