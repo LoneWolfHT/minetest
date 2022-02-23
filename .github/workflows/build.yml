@@ -204,7 +204,7 @@ jobs:
       # 2022.02
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.vcpkg_triplet }}
       
-      VCPKG_INSTALLED_DIR: ${{ github.worspace }}
+      VCPKG_INSTALLED_DIR: ${{ github.worspace }}\vcpkg\installed\
     strategy:
       fail-fast: false
       matrix:
@@ -241,6 +241,7 @@ jobs:
           appendedCacheKey: ${{ matrix.config.vcpkg_triplet }}
           vcpkgGitCommitId: ${{ env.VCPKG_VERSION }}
           vcpkgJsonGlob: '**/util/ci/vcpkg.json'
+          runVcpkgInstall: true
 
       - name: Minetest CMake
         run: |
